@@ -13,7 +13,13 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+        // Default roles
         Role::firstOrCreate(['name' => 'super_admin']);
-        Role::firstOrCreate(['name' => 'user']);
+        
+        // BRD Roles (Stakeholders)
+        Role::firstOrCreate(['name' => 'owner', 'guard_name' => 'web']);
+        Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+        Role::firstOrCreate(['name' => 'penjual', 'guard_name' => 'web']);
+        Role::firstOrCreate(['name' => 'pembeli', 'guard_name' => 'web']);
     }
 }

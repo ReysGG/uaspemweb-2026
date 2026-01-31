@@ -1,0 +1,350 @@
+{
+    "info": {
+        "_postman_id": "ekspimpor-api-collection",
+        "name": "EkspImpor API Collection",
+        "description": "Collection untuk testing API EkspImpor - Export Import Application",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://uaspemweb.test",
+            "type": "string"
+        },
+        {
+            "key": "api_token",
+            "value": "",
+            "type": "string",
+            "description": "Bearer token dari Sanctum"
+        }
+    ],
+    "item": [
+        {
+            "name": "Public Endpoints",
+            "description": "Endpoints yang tidak memerlukan authentication",
+            "item": [
+                {
+                    "name": "Get All Products",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "products"
+                            ]
+                        },
+                        "description": "Mengambil semua produk dengan pagination"
+                    }
+                },
+                {
+                    "name": "Get All Products with Filter",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/products?category_id=1&is_active=1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "products"
+                            ],
+                            "query": [
+                                {
+                                    "key": "category_id",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "is_active",
+                                    "value": "1"
+                                }
+                            ]
+                        },
+                        "description": "Filter produk berdasarkan category dan status"
+                    }
+                },
+                {
+                    "name": "Get Single Product",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/products/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "products",
+                                "1"
+                            ]
+                        },
+                        "description": "Mengambil detail produk berdasarkan ID"
+                    }
+                },
+                {
+                    "name": "Get All Categories",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/categories",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories"
+                            ]
+                        },
+                        "description": "Mengambil semua kategori"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Authentication",
+            "description": "Generate token menggunakan Laravel Tinker",
+            "item": [
+                {
+                    "name": "README - Generate Token",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}",
+                            "host": [
+                                "{{base_url}}"
+                            ]
+                        },
+                        "description": "Untuk generate token, jalankan di terminal:\n\n```bash\ndci bash\nphp artisan tinker\n```\n\nLalu di tinker:\n```php\n$user = \\App\\Models\\User::where('email', 'admin@admin.com')->first();\n$token = $user->createToken('postman')->plainTextToken;\necho $token;\n```\n\nCopy token yang muncul dan paste ke variable `api_token` di Collection Variables."
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Authenticated Endpoints",
+            "description": "Endpoints yang memerlukan Bearer Token",
+            "item": [
+                {
+                    "name": "Get All Sales",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{api_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/sales",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "sales"
+                            ]
+                        },
+                        "description": "Mengambil semua sales"
+                    }
+                },
+                {
+                    "name": "Get Sales with Status Filter",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{api_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/sales?status=completed",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "sales"
+                            ],
+                            "query": [
+                                {
+                                    "key": "status",
+                                    "value": "completed"
+                                }
+                            ]
+                        },
+                        "description": "Filter sales berdasarkan status"
+                    }
+                },
+                {
+                    "name": "Get Single Sale",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{api_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/sales/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "sales",
+                                "1"
+                            ]
+                        },
+                        "description": "Mengambil detail sale dengan items dan invoice"
+                    }
+                },
+                {
+                    "name": "Get Sale Tracking History",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{api_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/sales/1/tracking",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "sales",
+                                "1",
+                                "tracking"
+                            ]
+                        },
+                        "description": "Mengambil riwayat perubahan status sale"
+                    }
+                },
+                {
+                    "name": "Update Sale Status",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{api_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"status\": \"confirmed\",\n    \"notes\": \"Order confirmed by customer via phone\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/sales/1/status",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "sales",
+                                "1",
+                                "status"
+                            ]
+                        },
+                        "description": "Update status sale. Valid statuses: quotation, confirmed, processing, shipped, completed"
+                    }
+                },
+                {
+                    "name": "Get Dashboard Stats",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{api_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/dashboard/stats",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "dashboard",
+                                "stats"
+                            ]
+                        },
+                        "description": "Mengambil statistik dashboard: total sales, monthly sales, pending invoices, top products, dll"
+                    }
+                }
+            ]
+        }
+    ]
+}

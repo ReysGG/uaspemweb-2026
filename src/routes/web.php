@@ -17,5 +17,37 @@ Livewire::setScriptRoute(function ($handle) {
 / END
 */
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.app');
+})->name('home');
+
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('about');
+
+Route::get('/services', function () {
+    return view('pages.services');
+})->name('services');
+
+Route::get('/pricing', function () {
+    return view('pages.pricing');
+})->name('pricing');
+
+Route::get('/contact', function () {
+    return view('pages.contact');
+})->name('contact');
+
+Route::get('/get-a-quote', function () {
+    return view('pages.get-a-quote');
+})->name('get-a-quote');
+
+Route::get('/service-details', function () {
+    return view('pages.service-details');
+})->name('service-details');
+
+// Invoice PDF Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/invoice/{invoice}/download', [App\Http\Controllers\InvoicePdfController::class, 'download'])
+        ->name('invoice.download');
+    Route::get('/invoice/{invoice}/stream', [App\Http\Controllers\InvoicePdfController::class, 'stream'])
+        ->name('invoice.stream');
 });
