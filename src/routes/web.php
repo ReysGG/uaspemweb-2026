@@ -44,6 +44,14 @@ Route::get('/service-details', function () {
     return view('pages.service-details');
 })->name('service-details');
 
+Route::get('/products', function () {
+    return view('pages.products');
+})->name('products');
+
+Route::get('/categories', function () {
+    return view('pages.categories');
+})->name('categories');
+
 // Invoice PDF Routes
 Route::middleware('auth')->group(function () {
     Route::get('/invoice/{invoice}/download', [App\Http\Controllers\InvoicePdfController::class, 'download'])
