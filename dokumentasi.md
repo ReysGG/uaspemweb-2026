@@ -216,6 +216,8 @@ dcp "feat: complete implementation of export-import application"
 | About | http://uaspemweb.test/about |
 | Services | http://uaspemweb.test/services |
 | Service Details | http://uaspemweb.test/service-details |
+| **Products** | http://uaspemweb.test/products |
+| **Categories** | http://uaspemweb.test/categories |
 | Pricing | http://uaspemweb.test/pricing |
 | Contact | http://uaspemweb.test/contact |
 | Get a Quote | http://uaspemweb.test/get-a-quote |
@@ -226,13 +228,47 @@ dcp "feat: complete implementation of export-import application"
 | Login | http://uaspemweb.test/admin/login |
 | Dashboard | http://uaspemweb.test/admin |
 
-## API Endpoints
+## API Endpoints (Public)
 | Endpoint | URL |
 |----------|-----|
 | Products | http://uaspemweb.test/api/v1/products |
+| Products by Category | http://uaspemweb.test/api/v1/products?category_id=1 |
 | Categories | http://uaspemweb.test/api/v1/categories |
-| Sales | http://uaspemweb.test/api/v1/sales (auth) |
-| Dashboard Stats | http://uaspemweb.test/api/v1/dashboard/stats (auth) |
+
+## API Endpoints (Authenticated)
+| Endpoint | URL |
+|----------|-----|
+| Sales | http://uaspemweb.test/api/v1/sales |
+| Sale Detail | http://uaspemweb.test/api/v1/sales/{id} |
+| Sale Tracking | http://uaspemweb.test/api/v1/sales/{id}/tracking |
+| Update Status | http://uaspemweb.test/api/v1/sales/{id}/status (PATCH) |
+| Dashboard Stats | http://uaspemweb.test/api/v1/dashboard/stats |
+
+---
+
+# HALAMAN PUBLIC DENGAN API
+
+## Products Page (`/products`)
+Halaman ini mengambil data dari API `/api/v1/products` dan menampilkannya.
+
+**Fitur:**
+- Menampilkan semua produk dari database
+- Filter berdasarkan kategori via URL: `/products?category=1`
+- Dropdown filter kategori
+- Search box untuk cari produk
+- Data diambil via JavaScript `fetch()`
+
+**File:** `resources/views/pages/products.blade.php`
+
+## Categories Page (`/categories`)
+Halaman ini mengambil data dari API `/api/v1/categories`.
+
+**Fitur:**
+- Menampilkan semua kategori
+- Klik kategori → redirect ke `/products?category={id}`
+- Menampilkan jumlah produk per kategori
+
+**File:** `resources/views/pages/categories.blade.php`
 
 ---
 
